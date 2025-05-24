@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ffffd4;
+  --foreground: #ffffff;
 }
 
 @theme inline {
@@ -20,7 +20,18 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Playfair Display", serif;
+
+  background: 
+  radial-gradient(circle at 80% 20%, #a0e0d9, transparent 40%),
+  radial-gradient(circle at 10% 10%, #f0f9b8, transparent 40%),
+  radial-gradient(circle at 40% 80%, #a0e0d9, transparent 40%),    #ffffd4; /* <-- solid yellow base */
+  color: black;
+}
+
+/* Hide Next.js development overlay */
+body > div[data-nextjs-dialog-overlay],
+body > div[data-nextjs-dialog],
+body > iframe {
+  display: none !important;
 }
