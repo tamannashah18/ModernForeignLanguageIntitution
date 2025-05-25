@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client'; // Use default unless you have a custom output
-
+import { PrismaClient } from '../../../generated/prisma'; // Adjust path as needed
 const prisma = new PrismaClient();
 
+// Helper to serialize BigInt values to string
 function serializeBigInt(obj) {
   if (Array.isArray(obj)) {
     return obj.map(serializeBigInt);
@@ -22,9 +22,10 @@ function serializeBigInt(obj) {
   return obj;
 }
 
+// GET /api/reviews
 export async function GET() {
   try {
-    const reviews = await prisma.review.findMany({ // Use 'review' if that's your model name
+    const reviews = await prisma.reviews.findMany({
       include: {
         Exam_Info: true,
         Languages: true
@@ -34,7 +35,7 @@ export async function GET() {
     return NextResponse.json(serializeBigInt(reviews));
   } catch (error) {
     console.error('GET /reviews error:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 }); // For debugging
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
 
