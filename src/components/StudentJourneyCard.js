@@ -13,8 +13,8 @@ export default function StudentJourneyCard({ review }) {
     review.exam_name ||
     review.exam ||
     "Exam";
-  const max_marks = review.Exam_Info?.max_marks || "-";
-  const marks = review.marks_obtained || review.marks || "-";
+  const max_marks = review.Exam_Info?.max_marks || "";
+  const marks = review.marks_obtained || review.marks || "";
   const year =
     (review.exam_date && new Date(review.exam_date).getFullYear()) || "Year";
   const experience = review.experience || review.review || "";
@@ -41,9 +41,11 @@ export default function StudentJourneyCard({ review }) {
           <div className="font-semibold truncate w-full transition-all duration-300 group-hover:text-[#008c63]">{studentName}</div>
           <div className="truncate w-full transition-all duration-300">Language: {language}</div>
           <div className="break-words w-full text-center transition-all duration-300">{examName}</div>
+          {marks!="" && max_marks!="" && year!="" && (
           <div className="truncate w-full transition-all duration-300">
             {marks} / {max_marks} ({year})
           </div>
+          )}
         </div>
       </div>
       
@@ -62,7 +64,7 @@ export default function StudentJourneyCard({ review }) {
           <div className="flex flex-col ml-3 text-[12px] font-normal leading-tight text-left min-w-0 transition-all duration-500">
             <span className="font-semibold truncate transition-all duration-300 hover:text-[#008c63]">Name: {studentName}</span>
             <span className="truncate transition-all duration-300">Language: {language}</span>
-            <span className="break-words transition-all duration-300">Exam Name: {examName}</span>
+            <span className="break-words transition-all duration-300">Exam/Course Name: {examName}</span>
             <span className="truncate transition-all duration-300">
               {marks} / {max_marks} ({year})
             </span>

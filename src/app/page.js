@@ -1,7 +1,7 @@
 "use client";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faLinkedinIn, faYoutube, faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import Head from 'next/head';
 import Modal from '../components/Modal';
 import EnquiryForm from '@/components/EnquiryForm';
@@ -11,34 +11,29 @@ import { InView } from 'react-intersection-observer';
 
 export default function Home() {
   const [openModal, setOpenModal] = useState(null);
-
-  const Flag = ({ src, alt, language }) => (
-    <div className="text-center">
-      <img alt={alt} className="mx-auto" src={src} width={180} height={120} />
-      <p className="mt-3 text-lg font-semibold">{language}</p>
-    </div>
-  );
+  const [reviewRefresh, setReviewRefresh]=useState(false);
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
+      <div className="flex-grow">
       <nav className="fixed top-0 right-0 left-0 z-50 bg-transparent py-3 px-6">
         <div className="max-w-7xl mx-auto flex justify-end space-x-4 text-[#008c63] text-sm font-semibold tracking-wide">
-          <button className="hover:underline transition duration-300" onClick={() => setOpenModal('enquiry')}>ENQUIRY</button>
+          <button className="hover:text-red-600 transition duration-300" onClick={() => setOpenModal('enquiry')}>ENQUIRY</button>
           <span>|</span>
-          <button className="hover:underline transition duration-300" onClick={() => setOpenModal('review')}>ADD REVIEW</button>
+          <button className="hover:text-red-600 transition duration-300" onClick={() => setOpenModal('review')}>ADD REVIEW</button>
         </div>
       </nav>
 
       {/* ENQUIRY MODAL */}
       <Modal isOpen={openModal === 'enquiry'} onClose={() => setOpenModal(null)}>
         <h2 className="text-xl mb-2">Enquiry Form</h2>
-        <EnquiryForm />
+        <EnquiryForm onClose={() => setOpenModal(null)} />
       </Modal>
 
       {/* REVIEW MODAL */}
       <Modal isOpen={openModal === 'review'} onClose={() => setOpenModal(null)}>
         <h2 className="text-xl mb-2">Add Review</h2>
-        <ReviewSection onlyForm />
+        <ReviewSection onClose={() => {setOpenModal(null),setReviewRefresh(true)}}/>
       </Modal>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
@@ -51,7 +46,7 @@ export default function Home() {
                 <h1
                   ref={ref}
                   className={`
-                    text-2xl sm:text-2xl md:text-4xl lg:text-6xl mb-6 text-center md:text-left leading-tight tracking-tight drop-shadow-xl
+                    text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-6 text-center md:text-left leading-tight tracking-tight drop-shadow-xl
                     transition-all duration-700 ease-out
                     ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
                   `}
@@ -66,7 +61,7 @@ export default function Home() {
                 <p
                   ref={ref}
                   className={`
-                    text-lg sm:text-xl md:text-2xl font-normal leading-relaxed text-center md:text-left max-w-md
+                    text-md sm:text-lg md:text-xl font-normal leading-relaxed text-center md:text-left max-w-sm
                     transition-all duration-700 ease-out
                     ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
                   `}
@@ -110,7 +105,7 @@ export default function Home() {
                 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
               `}
             >
-              <h2 className="text-5xl font-normal text-center mb-20">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-center mb-12 sm:mb-20">
                 Languages Offered
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-x-16 gap-y-10 justify-items-center px-6 max-w-5xl mx-auto">
@@ -131,13 +126,13 @@ export default function Home() {
                         style={{ transitionDelay: `${idx * 120}ms` }}
                       >
                         <img alt={flag.alt} className="mx-auto" src={flag.src} width={180} height={120} />
-                        <p className="mt-3 text-lg font-semibold">{flag.label}</p>
+                        <p className="mt-3 text-lg ">{flag.label}</p>
                       </div>
                     )}
                   </InView>
                 ))}
               </div>
-              <div className="flex justify-center gap-x-16 mt-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10 justify-items-center px-6 mt-10 max-w-3xl mx-auto">
                 {[
                   { src: "/assets/spain.png", alt: "Spanish flag", label: "Spanish" },
                   { src: "/assets/italy.png", alt: "Italian flag", label: "Italian" },
@@ -154,7 +149,7 @@ export default function Home() {
                         style={{ transitionDelay: `${(idx + 3) * 120}ms` }}
                       >
                         <img alt={flag.alt} className="mx-auto" src={flag.src} width={180} height={120} />
-                        <p className="mt-3 text-lg font-semibold">{flag.label}</p>
+                        <p className="mt-3 text-lg">{flag.label}</p>
                       </div>
                     )}
                   </InView>
@@ -190,7 +185,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="md:w-3/5">
-                <h2 className="text-4xl font-normal mb-7  border-b border-gray-400 pb-6">
+                <h2 className="text-3xl sm:text-4xl font-normal mb-7 border-b border-gray-400 pb-6">
                   About the mentor<br/>
                 </h2>
                 <p className=" mx-15 text-md  font-normal leading-relaxed w-4/5">
@@ -213,38 +208,69 @@ export default function Home() {
 
       {/* You can wrap StudentJourneysSection and other sections in <InView> similarly if you want them to animate on scroll */}
 
-      <StudentJourneysSection/>
+      <StudentJourneysSection refresh={reviewRefresh}/>
+      </div>
 
-      <footer className="bg-[#7fcdb3] text-xs text-black flex justify-between items-center px-6 py-2">
-        <div>
-          <p>Contact Us: +91 94287 46469</p>
-          <p><a href='mailto:Mfli.yoshitadalal@gmail.com'>Email: Mfli.yoshitadalal@gmail.com</a></p>
-        </div>
-        <div className="flex items-center space-x-2">
-          <p className="mr-2">Follow Us :</p>
-          <a aria-label="Facebook" target="_blank" className="text-blue-600 hover:text-blue-800" href="https://www.facebook.com/share/1EFKdkmGsH/">
-            <FontAwesomeIcon icon={faFacebookF} size="lg" />
-          </a>
-          <a aria-label="LinkedIn" target="_blank" className="text-blue-700 hover:text-blue-900" href="https://www.linkedin.com/in/yoshitadalal?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
-            <FontAwesomeIcon icon={faLinkedinIn} size="lg" />
-          </a>
-          <a aria-label="YouTube" target="_blank" className="text-red-600 hover:text-red-800" href="https://youtube.com/@yoshitadalal7760?si=mvRYBJMl8g2Sf6sC">
-            <FontAwesomeIcon icon={faYoutube} size="lg" />
-          </a>
-          <a aria-label="Instagram" className="text-purple-800 hover:text-pink-600" href="https://www.instagram.com/yoshita_dalal_offical?utm_source=qr&igsh=Z3U0aDR3NzBvZmEy" target="_blank">
-            <FontAwesomeIcon icon={faInstagram} size="lg" />
-          </a>
-          <button
-            aria-label="Whatsapp"
-            target="_blank"
-            className="text-white hover:text-green-700"
-            onClick={() => setOpenModal('enquiry')}
-            style={{ background: 'none', border: 'none', padding: 0, margin: 0, cursor: 'pointer' }}
-          >
-            <FontAwesomeIcon icon={faWhatsapp} size="lg" />
-          </button>
+      <footer className="bg-[#7fcdb3] text-black py-4 px-4 sm:px-6 font-sans">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+          {/* Contact Information */}
+          <div className="text-center sm:text-left mb-4 sm:mb-0">
+            <p className="text-xs sm:text-sm">Contact Us: +91 94287 46469</p>
+            <p className="text-xs sm:text-sm">
+              <a href='mailto:Mfli.yoshitadalal@gmail.com' className="hover:underline">
+                Email: Mfli.yoshitadalal@gmail.com
+              </a>
+            </p>
+          </div>
+          
+          {/* Social Media Links */}
+          <div className="flex flex-col sm:flex-row items-center">
+            <p className="text-xs sm:text-sm mb-2 sm:mb-0 sm:mr-3">Follow Us :</p>
+            <div className="flex items-center space-x-4 sm:space-x-3">
+              <a 
+                aria-label="Facebook" 
+                target="_blank" 
+                className="text-blue-600 hover:text-blue-800 transition-colors" 
+                href="https://www.facebook.com/share/1EFKdkmGsH/"
+              >
+                <FontAwesomeIcon icon={faFacebookF} size="lg" />
+              </a>
+              <a 
+                aria-label="LinkedIn" 
+                target="_blank" 
+                className="text-blue-700 hover:text-blue-900 transition-colors" 
+                href="https://www.linkedin.com/in/yoshitadalal?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+              >
+                <FontAwesomeIcon icon={faLinkedinIn} size="lg" />
+              </a>
+              <a 
+                aria-label="YouTube" 
+                target="_blank" 
+                className="text-red-600 hover:text-red-800 transition-colors" 
+                href="https://youtube.com/@yoshitadalal7760?si=mvRYBJMl8g2Sf6sC"
+              >
+                <FontAwesomeIcon icon={faYoutube} size="lg" />
+              </a>
+              <a 
+                aria-label="Instagram" 
+                className="text-purple-800 hover:text-pink-600 transition-colors" 
+                href="https://www.instagram.com/yoshita_dalal_offical?utm_source=qr&igsh=Z3U0aDR3NzBvZmEy" 
+                target="_blank"
+              >
+                <FontAwesomeIcon icon={faInstagram} size="lg" />
+              </a>
+              <button
+                aria-label="Whatsapp"
+                className="text-green-600 hover:text-green-800 transition-colors"
+                onClick={() => setOpenModal('enquiry')}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+              >
+                <FontAwesomeIcon icon={faWhatsapp} size="lg" />
+              </button>
+            </div>
+          </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

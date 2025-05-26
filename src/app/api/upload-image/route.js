@@ -1,19 +1,26 @@
 import { put } from '@vercel/blob';
 import { NextResponse } from 'next/server';
 
-export const config = { api: { bodyParser: false } };
-
 export async function POST(request) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const filename = searchParams.get('filename') +`${Date.now()}`;
+  // Parse form data from the request
+  const formData = await request.formData();
+  const file = formData.get('file'); // 'file' is the key you used in FormData
 
-    // The request body is the file
-    const blob = await put(filename, request.body, { access: 'public' });
-
-    return NextResponse.json({ url: blob.url });
-  } catch (error) {
-    console.error('Upload error:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  if (!file) {
+    return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
   }
+
+  // Get the original extension
+  const originalName = file.name || 'upload';
+  const extension = originalName.match(/\.[^/.]+$/)?.[0] || '';
+  const newFilename = `${Date.now()}${extension}`;
+
+  // Convert Blob to ArrayBuffer, then to Buffer
+  const arrayBuffer = await file.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+
+  // Upload to Vercel Blob
+  const blob = await put(newFilename, buffer, { access: 'public' });
+
+  return NextResponse.json({ url: blob.url });
 }
