@@ -23,11 +23,38 @@ export default function EnquiryForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className=" p-3 space-y-6 max-w-md mx-auto">
-      <input name="name" value={form.name} onChange={handleChange} placeholder="Name" required className="w-full border p-2" />
-      <input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone Number" required className="w-full border p-2" />
-      <input name="email" value={form.email} onChange={handleChange} placeholder="Email" required className="w-full border p-2" />
-      <select name="language" value={form.language} onChange={handleChange} required className="w-full border p-2" >
+    <form onSubmit={handleSubmit} className="p-3 space-y-4 sm:space-y-5 w-full mx-auto">
+      <input 
+        name="name" 
+        value={form.name} 
+        onChange={handleChange} 
+        placeholder="Name" 
+        required 
+        className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm sm:text-base" 
+      />
+      <input 
+        name="phone" 
+        value={form.phone} 
+        onChange={handleChange} 
+        placeholder="Phone Number" 
+        required 
+        className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm sm:text-base" 
+      />
+      <input 
+        name="email" 
+        value={form.email} 
+        onChange={handleChange} 
+        placeholder="Email" 
+        required 
+        className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm sm:text-base" 
+      />
+      <select 
+        name="language" 
+        value={form.language} 
+        onChange={handleChange} 
+        required 
+        className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent appearance-none bg-white text-sm sm:text-base" 
+      >
         <option value={"-1"}>Select Your Preferred Language</option>  
         <option value={"Chinese"}>Chinese</option>  
         <option value={"French"}>French</option>  
@@ -35,14 +62,32 @@ export default function EnquiryForm() {
         <option value={"Italian"}>Italian</option>  
         <option value={"Spanish"}>Spanish</option>  
       </select>
-      <input name="city" value={form.city} onChange={handleChange} placeholder="City" required className="w-full border p-2" />
-      <select name="mode" value={form.mode} onChange={handleChange} required className="w-full border p-2" >
+      <input 
+        name="city" 
+        value={form.city} 
+        onChange={handleChange} 
+        placeholder="City" 
+        required 
+        className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm sm:text-base" 
+      />
+      <select 
+        name="mode" 
+        value={form.mode} 
+        onChange={handleChange} 
+        required 
+        className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent appearance-none bg-white text-sm sm:text-base" 
+      >
         <option value={"-1"}>Select Your Preferred Mode of Learning</option>  
         <option value={"Online"}>Online</option>  
         <option value={"Offline"}>Offline/In-person</option>  
       </select>
       
-      <button type="submit" className=" bg-center w-full bg-green-600 text-white px-4 py-2 rounded">Enquire via WhatsApp</button>
+      <button 
+        type="submit" 
+        className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition-colors duration-300 mt-2 text-sm sm:text-base"
+      >
+        Enquire via WhatsApp
+      </button>
     </form>
   );
 }

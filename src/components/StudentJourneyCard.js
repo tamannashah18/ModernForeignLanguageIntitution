@@ -160,9 +160,11 @@ export default function StudentJourneyCard({ review }) {
             <span className="break-words transition-all duration-300">
               Exam/Course Name: {examName}
             </span>
+            {marks !== "" && max_marks !== "" && year !== "" && (
+
             <span className="truncate transition-all duration-300">
               {marks} / {max_marks} ({year})
-            </span>
+            </span>)}
           </div>
         </div>
         <div

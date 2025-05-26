@@ -26,13 +26,13 @@ export default function Home() {
 
       {/* ENQUIRY MODAL */}
       <Modal isOpen={openModal === 'enquiry'} onClose={() => setOpenModal(null)}>
-        <h2 className="text-xl mb-2">Enquiry Form</h2>
+        <h2 className="text-lg sm:text-2xl font-semibold mb-3 sm:mb-4 text-center sm:text-left text-green-700">Enquiry Form</h2>
         <EnquiryForm onClose={() => setOpenModal(null)} />
       </Modal>
 
       {/* REVIEW MODAL */}
       <Modal isOpen={openModal === 'review'} onClose={() => setOpenModal(null)}>
-        <h2 className="text-xl mb-2">Add Review</h2>
+        <h2 className="text-lg sm:text-2xl font-semibold mb-3 sm:mb-4 text-center sm:text-left text-green-700">Add Review</h2>
         <ReviewSection onClose={() => {setOpenModal(null),setReviewRefresh(true)}}/>
       </Modal>
 
@@ -173,32 +173,32 @@ export default function Home() {
               <div className="flex flex-col items-center md:items-start md:w-1/3">
                 <img
                   alt="Portrait of Mrs Yoshita Dalal, founder and educator, smiling with glasses and white blazer"
-                  className="rounded-[50%_30%_50%_30%/30%_50%_30%_50%] w-80 h-80 object-cover"
+                  className="rounded-[50%_30%_50%_30%/30%_50%_30%_50%] w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 object-cover"
                   src="/assets/portrait.jpg"
                   width={256}
                   height={256}
                 />
-                <p className=" mx-20 mt-4 text-center text-lg font-normal max-w-[200px]">
+                <p className="mt-3 sm:mt-4 text-center text-sm sm:text-base md:text-lg font-normal max-w-[180px] sm:max-w-[200px]">
                   Mrs. Yoshita Dalal
                   <br />
-                  (founder &amp; educator)
+                  <span className="text-xs sm:text-sm">(founder &amp; educator)</span>
                 </p>
               </div>
               <div className="md:w-3/5">
-                <h2 className="text-3xl sm:text-4xl font-normal mb-7 border-b border-gray-400 pb-6">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-normal mb-4 sm:mb-6 md:mb-7 border-b border-gray-400 pb-4 sm:pb-6">
                   About the mentor<br/>
                 </h2>
-                <p className=" mx-15 text-md  font-normal leading-relaxed w-4/5">
+                <p className="text-sm sm:text-base md:text-md font-normal leading-relaxed w-full px-4 sm:px-0 sm:w-[90%] md:w-4/5">
                   With over 25 years of experience in foreign language education,
                   Yoshita Dalal is a seasoned expert in linguistics and cross-cultural
                   communication. Proficient in French, German, Spanish, Italian, and
                   Chinese, she has dedicated her career to empowering students with the
                   skills to navigate the global landscape since 1998.
-                  <br />
+                  <br /><br />
                   Her passion for teaching and deep understanding of language nuances
                   make her an invaluable mentor for learners at all levels.
                 </p>
-                <hr className="border-t border-gray-400 mt-6" />
+                <hr className="border-t border-gray-400 mt-4 sm:mt-6" />
               </div>
             </section>
           )}
