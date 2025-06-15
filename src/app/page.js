@@ -46,7 +46,7 @@ export default function Home() {
                 <h1
                   ref={ref}
                   className={`
-                    text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-6 text-center md:text-left leading-tight tracking-tight drop-shadow-xl
+                    text-5xl sm:text-5xl md:text-5xl lg:text-6xl mb-6 text-center md:text-left leading-tight tracking-tight drop-shadow-xl
                     transition-all duration-700 ease-out
                     ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
                   `}
@@ -165,7 +165,7 @@ export default function Home() {
             <section
               ref={ref}
               className={`
-                mt-16 max-w-5xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-8
+                mt-16 max-w-5xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-8 mb-3
                 transition-all duration-700 ease-out
                 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
               `}
