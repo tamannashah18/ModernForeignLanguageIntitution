@@ -160,12 +160,12 @@ export default function Home() {
         </InView>
 
         {/* ABOUT THE MENTOR SECTION */}
-        <InView threshold={0.2}>
+        <InView threshold={0.5}>
           {({ inView, ref }) => (
             <section
               ref={ref}
               className={`
-                mt-16 max-w-5xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-8 mb-3
+                mt-16 max-w-5xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-8
                 transition-all duration-700 ease-out
                 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
               `}
@@ -188,7 +188,7 @@ export default function Home() {
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-normal mb-4 sm:mb-6 md:mb-7 border-b border-gray-400 pb-4 sm:pb-6">
                   About the mentor<br/>
                 </h2>
-                <p className="text-sm sm:text-base md:text-md font-normal leading-relaxed w-full px-4 sm:px-0 sm:w-[90%] md:w-4/5">
+                <p className="text-md sm:text-base md:text-md font-normal leading-relaxed w-full px-4 sm:px-0 sm:w-[90%] md:w-4/5">
                   With over 25 years of experience in foreign language education,
                   Yoshita Dalal is a seasoned expert in linguistics and cross-cultural
                   communication. Proficient in French, German, Spanish, Italian, and

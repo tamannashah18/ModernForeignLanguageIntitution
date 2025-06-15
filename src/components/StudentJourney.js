@@ -56,7 +56,7 @@ export default function StudentJourneysSection(refresh=false) {
   if (loading) return <Loading />;
 
   return (
-    <section className="mt-8 max-w-7xl mx-auto px-2 relative mb-5">
+    <section className="mt-5 max-w-7xl mx-auto px-2 relative mb-5">
       <h2 className="text-4xl font-normal mb-6 text-center">
         Student Journeys
       </h2>
